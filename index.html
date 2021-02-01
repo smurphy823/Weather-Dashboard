@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+
+<body>
+    <body class="siteBody">
+    
+        <!-- nav bar -->
+        <header class="col-xl-12">
+            <nav id="siteNavBar" class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="./index.html">Weather Dashboard</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                           
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <br><br><br><br>
+        </header>
+    
+        <div class="container">
+            <div class="row">
+                <aside class="col-3">
+                    <label for="searchBox">Search for a City</label>
+                    <input id="searchBox"/>
+                    <button id="searchBtn" >Search</button>
+                    <ul class="history"></ul>
+                </aside>
+                <div class="col-9">
+                    <div id="today"></div>
+                    <div id="5day"></div>
+                </div>
+            </div>
+        </div>
+       
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>   
+<script src="style.js"></script>
+</body>
+</html>
