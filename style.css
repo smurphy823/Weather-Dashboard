@@ -14,3 +14,11 @@
     text-align: center;
     z-index: 3;
 }
+
+.dayBox {
+    height: 200px;
+    width: 200px;
+    border-style: solid;
+    float: left;
+    margin-left: 5px;
+}
