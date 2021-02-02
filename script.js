@@ -40,22 +40,18 @@ $(document).ready(function(){
               for (i = 0; i < fiveDayArray.length; i++) {
                 let boxInc = (i+1)
                 var boxData = `<p>${fiveDayArray[i].dt_txt.split(" ")[0]}</p>
-                <p>Temp: ${fiveDayArray[i].main.temp}</p>
+                <strong><p>Temp: ${fiveDayArray[i].main.temp}</p></strong>
                 <img src="http://openweathermap.org/img/w/${fiveDayArray[i].weather[0].icon}.png">
-                <p>Humidity: ${fiveDayArray[i].main.humidity}</p>
+                <p>Humidity: ${fiveDayArray[i].main.humidity}</p>` 
                 
-                
-                
-                ` 
-
                 $("#day"+boxInc).html(boxData)
               } 
                  $("#5day").show()
+             // $("#5day").append(boxInc, boxData)
 
-           // $("#5day").append(cityName, temp, humid, wind)
         })
     }
 
-
 })
 
+    
