@@ -13,8 +13,9 @@
     left: 0;
     width: 100%;
     z-index: 3;
-    background-color: rgb(42, 134, 196);
+    background-color: rgb(42, 109, 196);
     color: white;
+    
     
 }
    
@@ -22,10 +23,14 @@
     height: 200px;
     width: 200px;
     border-style: solid;
-    float: left;
+    float: right;
     margin-left: 5px;
     background-color: white;
     color:azure;
     text-align: center;
     background-image: url(https://images.unsplash.com/photo-1569511735406-407c5884625c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OTJ8fHdlYXRoZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60);
 }
+
+   #today { 
+       text-align: center;
+   }

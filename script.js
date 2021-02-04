@@ -5,6 +5,7 @@ $(document).ready(function(){
         console.log(cityName)
         todaysWeather(cityName)
         fiveDayWeather(cityName)
+        //uvIndex(cityName)
     })
 
     var apiKey = "2aa28018e3a875b3d5f502628a4b6ed7&units=imperial" 
@@ -16,13 +17,15 @@ $(document).ready(function(){
         }).then(function(data){
             console.log(data)
             var cityName = $("<h2>").text(`${data.name} ${new Date().toLocaleDateString()}`)
-            var temp = $("<p>").text(`temp: ${data.main.temp}`)
-            var humid = $("<p>").text(`humidity: ${data.main.humidity}`)
+            var temp = $("<p>").text(`Temp: ${data.main.temp}`)
+            var humid = $("<p>").text(`Humidity: ${data.main.humidity}`)
             var icon = $("<img>").attr("src","http://openweathermap.org/img/w/"+data.weather[0].icon+".png")
-            var wind = $("<p>").text(`wind speed: ${data.wind.speed}`)
+            var wind = $("<p>").text(`Wind speed: ${data.wind.speed}`)
             cityName.append(icon)
             $("#today").append(cityName, temp, humid, wind)
         })
+
+
     }
     function fiveDayWeather(cityName){
         $.ajax({
@@ -47,11 +50,35 @@ $(document).ready(function(){
                 $("#day"+boxInc).html(boxData)
               } 
                  $("#5day").show()
-             // $("#5day").append(boxInc, boxData)
-
         })
     }
 
+        var cityName = $("#searchBox").val()
+        var searchCities = localStorage.getItem("cities");
+           if (searchCities === null) {
+            searchCities = [];
+          } else {
+            searchCities = JSON.parse(searchCities);
+          }
+        searchCities.push(cityName);
+        var cityNames = JSON.stringify(searchCities);
+        localStorage.setItem("cities", cityNames)
+        console.log(cityNames)
+
+        
+        /* function uvIndex(cityName){
+        $.ajax({
+            type:"GET",
+            url:"https://api.openweathermap.org/data/2.5/onecall?lat="+ cityName + latValue+"&lon="+longValue+"&appid="+apiKey    
+        }).then(function(data){
+            console.log(data)
+            var latValue = data.coord.lat
+            var longValue = data.coord.lon
+            $("#uvIndex").append(latValue, longValue)
+        })
+    } 
+   */
 })
+
 
     
