@@ -5,7 +5,7 @@ $(document).ready(function(){
         console.log(cityName)
         todaysWeather(cityName)
         fiveDayWeather(cityName)
-        //uvIndex(cityName)
+        uvIndex(cityName)
     })
 
     var apiKey = "2aa28018e3a875b3d5f502628a4b6ed7&units=imperial" 
@@ -65,19 +65,22 @@ $(document).ready(function(){
         localStorage.setItem("cities", cityNames)
         console.log(cityNames)
 
+
         
-        /* function uvIndex(cityName){
-        $.ajax({
-            type:"GET",
-            url:"https://api.openweathermap.org/data/2.5/onecall?lat="+ cityName + latValue+"&lon="+longValue+"&appid="+apiKey    
-        }).then(function(data){
-            console.log(data)
-            var latValue = data.coord.lat
-            var longValue = data.coord.lon
-            $("#uvIndex").append(latValue, longValue)
-        })
-    } 
-   */
+        function uvIndex(lat){
+            function uvIndex(lon){
+            $.ajax({
+                type:"GET",
+                url:"https://api.openweathermap.org/data/2.5/onecall?lat="+  cityName + lat+"&lon="+lon+"&appid="+apiKey    
+            }).then(function(data){
+                console.log(data)
+                var lat = $("<p>").text(`Lat: ${data.coord.lat}`)   
+                var lon = $("<p>").text(`Lon: ${data.coord.lon}`)  
+                $("#uvIndex").append(lat, lon)
+            })
+        } 
+    }
+   
 })
 
 
