@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
     $("#5day").hide()
     $("#searchBtn").on("click", function(){
@@ -7,8 +8,24 @@ $(document).ready(function(){
         fiveDayWeather(cityName)
         uvIndex(cityName)
     })
+    var history = JSON.parse(localStorage.getItem("saveCity")) || []
 
+    if(history.length > 0) {
+        todaysWeather(history[history.length - 1])
+    }
+
+    for(var i = 0; i < history.length; i++){
+        button(history[i])
+    }
     var apiKey = "2aa28018e3a875b3d5f502628a4b6ed7&units=imperial" 
+    $("#history").on("click", "li", function(){
+        todaysWeather($(this).text())
+    })
+
+    function button(city){
+        var li = $("<li>").addClass("list-group-item").text(city)
+        $("#history").append(li)
+    }
 
     function todaysWeather(cityName){
         $.ajax({
@@ -16,6 +33,13 @@ $(document).ready(function(){
             url:"https://api.openweathermap.org/data/2.5/weather?q="+ cityName+"&appid="+apiKey
         }).then(function(data){
             console.log(data)
+            if(history.indexOf(data.name)=== -1){
+                history.push(data.name)
+                console.log(data.name)
+                localStorage.setItem("saveCity", JSON.stringify(history))
+                button(data.name)
+            }
+            $("#today").empty()
             var cityName = $("<h2>").text(`${data.name} ${new Date().toLocaleDateString()}`)
             var temp = $("<p>").text(`Temp: ${data.main.temp}`)
             var humid = $("<p>").text(`Humidity: ${data.main.humidity}`)
@@ -23,6 +47,9 @@ $(document).ready(function(){
             var wind = $("<p>").text(`Wind speed: ${data.wind.speed}`)
             cityName.append(icon)
             $("#today").append(cityName, temp, humid, wind)
+            var lat = data.coord.lat
+            var lon = data.coord.lon
+            uvIndex(lat,lon)
         })
 
 
@@ -52,33 +79,20 @@ $(document).ready(function(){
                  $("#5day").show()
         })
     }
-
-        var cityName = $("#searchBox").val()
-        var searchCities = localStorage.getItem("cities");
-           if (searchCities === null) {
-            searchCities = [];
-          } else {
-            searchCities = JSON.parse(searchCities);
-          }
-        searchCities.push(cityName);
-        var cityNames = JSON.stringify(searchCities);
-        localStorage.setItem("cities", cityNames)
-        console.log(cityNames)
-
-
         
-        function uvIndex(lat){
-            function uvIndex(lon){
+        
+        function uvIndex(lat, lon){
             $.ajax({
                 type:"GET",
-                url:"https://api.openweathermap.org/data/2.5/onecall?lat="+  cityName + lat+"&lon="+lon+"&appid="+apiKey    
+                url:"https://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat="+lat+ "&lon="+lon
             }).then(function(data){
                 console.log(data)
-                var lat = $("<p>").text(`Lat: ${data.coord.lat}`)   
-                var lon = $("<p>").text(`Lon: ${data.coord.lon}`)  
-                $("#uvIndex").append(lat, lon)
+                var uvValue = data.value
+                var pTag = $("<p>")
+                pTag.append("UV Index: ", uvValue)
+                $("#today").append(pTag)
             })
-        } 
+        
     }
    
 })
